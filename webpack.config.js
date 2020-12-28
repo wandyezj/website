@@ -6,7 +6,6 @@ const path = require("path");
 
 module.exports = async (env, options) => {
     const isDevelopment = options.mode === "development";
-    //console.log(options.mode);
     const config = {
         // no source maps for production
         devtool: isDevelopment ? "inline-source-map" : undefined,
