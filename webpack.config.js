@@ -1,59 +1,46 @@
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-//const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+
 const path = require("path");
 
-module.exports = {
-    output: {
-        path: path.resolve(__dirname, 'dist')
-    },
-    devtool: "source-map",
-    entry: "./src/index.ts",
-    module: {
-        rules: [
-            {
-                test: /\.ts$/,
-                use: "ts-loader",
-                exclude: /node_modules/,
-            },
-        ],
-    },
-    resolve: {
-        extensions: [".ts", ".js", ".html"],
-    },
-    module: {
-        rules: [
+module.exports = async (env, options) => {
+    const isDevelopment = options.mode === "development";
 
+    const config = {
+        devtool: isDevelopment ? "inline-source-map" : "source-map",
+        entry: "./src/index.ts",
+        output: {
+            filename: "bundle.js",
+            path: path.resolve(__dirname, "dist"),
+        },
+        module: {
+            rules: [
                 {
-                    test: /\.ts$/,
-                    exclude: /node_modules/,
-                    use: "ts-loader"
-                },
-                {
-                    test: /\.html$/,
-                    exclude: /node_modules/,
-                    use: "html-loader"
+                    test: /\.css$/i,
+                    use: ['style-loader', 'css-loader'],
                   },
-                  {
+                {
                     test: /\.(png|jpg|jpeg|gif)$/,
-                    use: "assets/resource"
-                  }
-        ]
-    },
-    plugins: [
-        new CleanWebpackPlugin({
-            
-        }),
-        new HtmlWebpackPlugin( {
-            filename: "index.html",
-            template: "./src/index.html",
-            chunks: ["index"],
-        }),
-        // new CopyWebpackPlugin([
-        //     {
-        //         to: "index.css",
-        //         from: "./src/index.css"
-        //       },
-        // ])
-    ],
+                    use: "assets/resource",
+                },
+            ],
+        },
+        plugins: [
+            new CleanWebpackPlugin(),
+            new HtmlWebpackPlugin({
+                title: isDevelopment ? "website development" : "Website",
+                template: "./src/index.html",
+            }),
+            new CopyWebpackPlugin({
+                patterns: [
+                    {
+                        to: "index.css",
+                        from: "./src/index.css"
+                      },
+                ]}),
+        ],
+    };
+
+    return config;
 };
