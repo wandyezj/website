@@ -6,9 +6,13 @@ const path = require("path");
 
 module.exports = async (env, options) => {
     const isDevelopment = options.mode === "development";
-
+    //console.log(options.mode);
     const config = {
-        devtool: isDevelopment ? "inline-source-map" : "source-map",
+        // no source maps for production
+        devtool: isDevelopment ? "inline-source-map" : undefined,
+        devServer: {
+            contentBase: './dist',
+        },
         entry: "./src/index.ts",
         output: {
             filename: "bundle.js",
@@ -29,7 +33,6 @@ module.exports = async (env, options) => {
         plugins: [
             new CleanWebpackPlugin(),
             new HtmlWebpackPlugin({
-                title: isDevelopment ? "website development" : "Website",
                 template: "./src/index.html",
             }),
             new CopyWebpackPlugin({
