@@ -40,7 +40,7 @@ module.exports = async (env, options) => {
         plugins: [
             new CleanWebpackPlugin(),
             new HtmlWebpackPlugin({
-                template: "./src/index.html",
+                template: "src/index.html",
             }),
             new CopyWebpackPlugin({
                 patterns: [
