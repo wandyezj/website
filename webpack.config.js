@@ -10,7 +10,9 @@ module.exports = async (env, options) => {
         // no source maps for production
         devtool: isDevelopment ? "inline-source-map" : undefined,
         devServer: {
-            contentBase: "./dist",
+            static: {
+                directory: path.join(__dirname, "dist"),
+            },
         },
         entry: ["./src/index.ts"],
         output: {
