@@ -23,7 +23,7 @@
         "type": "git",
         "url": "git+https://github.com/wandyezj/website.git"
     },
-    "author": "",
+    "author": "wandyezj",
     "license": "Unlicense",
     "bugs": {
         "url": "https://github.com/wandyezj/website/issues"
