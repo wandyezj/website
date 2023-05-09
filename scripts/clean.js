@@ -1,7 +1,6 @@
-// cross platform replacement for
-
-// "clean":"rm --dir --recursive --verbose --force dist temp",
-// "clean-windows": "if exist dist (rmdir /S /Q dist) && if exist temp (rmdir /S /Q temp)",
+// Delete a directory
+// node clean.js directory
+// recursively deletes a directory
 
 const fs = require("fs");
 
