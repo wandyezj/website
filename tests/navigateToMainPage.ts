@@ -1,7 +1,5 @@
-import { test, expect, selectors, Page, Browser } from "@playwright/test";
-import * as fs from "fs";
-import path from "path";
-import { getRootDirectory } from "./getRootDirectory";
+import { expect, Page, Browser } from "@playwright/test";
+import { getLocalDistIndexData } from "./getLocalDistIndexData";
 
 /**
  * true - uses local dist for testing
@@ -9,7 +7,7 @@ import { getRootDirectory } from "./getRootDirectory";
  */
 const useLocalDist = true;
 
-const mainPageUrl = "https://openchecklist.github.io/";
+const mainPageUrl = "https://wandyezj.github.io/website";
 export const mainPageTitle = "Website";
 
 export async function navigateToMainPage(browser: Browser): Promise<Page> {
@@ -20,7 +18,7 @@ export async function navigateToMainPage(browser: Browser): Promise<Page> {
     // redirect to local data
     if (useLocalDist) {
         // interceptor to replace content of the page
-        page.route(mainPageUrl, (route, request) => {
+        page.route(mainPageUrl, (route) => {
             route.fulfill({
                 body: getLocalDistIndexData(),
             });
@@ -33,18 +31,4 @@ export async function navigateToMainPage(browser: Browser): Promise<Page> {
     await expect(page).toHaveTitle(mainPageTitle);
 
     return page;
-}
-
-/**
- * Local generated page from build
- */
-const mainPageLocalDistDataPath = path.resolve(getRootDirectory(), "dist", "index.html");
-
-function getLocalDistIndexData() {
-    if (!fs.existsSync(mainPageLocalDistDataPath)) {
-        throw new Error(`cannot find mainPageLocalDistDataPath`);
-    }
-
-    const mainPageLocalDistData = fs.readFileSync(mainPageLocalDistDataPath);
-    return mainPageLocalDistData;
 }

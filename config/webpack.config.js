@@ -11,14 +11,14 @@ module.exports = async (env, options) => {
         devtool: isDevelopment ? "inline-source-map" : undefined,
         devServer: {
             static: {
-                directory: path.join(__dirname, "dist"),
+                directory: path.join(__dirname, "..", "dist"),
             },
         },
         entry: ["./src/index.ts"],
         output: {
             // Add contenthash to cache bust on CDN
             filename: isDevelopment ? "bundle.js" : "bundle-[contenthash].js",
-            path: path.resolve(__dirname, "dist"),
+            path: path.resolve(__dirname, "..", "dist"),
         },
         resolve: {
             extensions: [".ts", ".json", ".js"],
