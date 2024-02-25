@@ -16,8 +16,9 @@
         // https://eslint.org/docs/latest/rules/eqeqeq
         // poka-yoke
         "eqeqeq": ["error", "always"],
+
         // Indent is enforced by prettier
-        "indent": ["warn", 4, { "SwitchCase": 1 }],
+        "indent": "off",
         "linebreak-style": ["warn", "unix"],
 
         // https://eslint.org/docs/latest/rules/quotes
@@ -26,17 +27,23 @@
 
         // https://eslint.org/docs/latest/rules/semi
         // poka-yoke
-        "semi": ["warn"],
+        "semi": ["warn", "always"],
         "no-debugger": "warn",
+
+        //
+        // Es Lint Rules
+        //
 
         // https://typescript-eslint.io/rules/no-inferrable-types/
         // disable - sometimes want to explicitly define types.
         "@typescript-eslint/no-inferrable-types": 0,
 
-        // https://typescript-eslint.io/rules/naming-convention/
-        // consistency
+        // https://typescript-eslint.io/rules/no-var-requires/
+        // disable - require is used in node js scripts
         "@typescript-eslint/no-var-requires": 0,
 
+        // https://typescript-eslint.io/rules/naming-convention/
+        // consistency
         "@typescript-eslint/naming-convention": [
             "warn",
             {
@@ -46,19 +53,27 @@
                 "trailingUnderscore": "forbid"
             },
             {
-                "selector": "enumMember",
+                "selector": ["variable"],
+                "modifiers": ["const"],
+                "format": ["strictCamelCase" /*, "UPPER_CASE" */],
+                "leadingUnderscore": "forbid",
+                "trailingUnderscore": "forbid"
+            },
+            {
+                "selector": ["enumMember"],
                 "format": ["PascalCase"],
                 "leadingUnderscore": "forbid",
                 "trailingUnderscore": "forbid"
             },
             {
                 "selector": ["typeLike"],
-                "format": ["PascalCase"]
+                "format": ["StrictPascalCase"]
             },
             {
                 "selector": ["interface"],
-                "format": ["PascalCase"],
+                "format": ["StrictPascalCase"],
                 "custom": {
+                    // Interface names must NOT be prefixed with I
                     "regex": "^I[A-Z]",
                     "match": false
                 }

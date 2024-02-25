@@ -34,7 +34,7 @@ jobs:
       uses: actions/setup-node@v3
       with:
         # Match Development Node Version
-        node-version: '18.x'
+        node-version: '20.x'
 
     # Tool Versions
     - name: Node Version
@@ -53,6 +53,12 @@ jobs:
 
     - name: style
       run: npm run style-check
+
+    - name: spell-check
+      run: npm run spell-check --if-present
+
+    - name: lint
+      run: npm run lint
 
     - name: compile
       run: npm run compile

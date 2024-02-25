@@ -4,17 +4,18 @@
     "description": "Simple Website Template",
     "private": true,
     "engines": {
-        "node": ">=18.16",
-        "npm": ">=9.5"
+        "node": ">=20.0",
+        "npm": ">=10.0"
     },
     "scripts": {
-        "build": "npm run clean && npm run style-check && npm run lint && npm run compile",
+        "build": "npm run clean && npm run style-check && npm run spell-check && npm run lint && npm run compile",
         "clean": "node ./scripts/clean.js dist",
         "compile": "webpack --config ./config/webpack.config.js --mode production",
         "server": "npm run start",
         "start": "webpack serve --config ./config/webpack.config.js --mode development",
         "style": "prettier --config ./config/prettier.json  --write \"@(src|Tests|scripts)/**/*.@(ts|js|md|html|css|json)\"",
         "style-check": "prettier --config ./config/prettier.json  --check \"@(src|tests|scripts)/**/*.@(ts|js|md|html|css|json)\"",
+        "spell-check": "cspell --config ./.vscode/cspell.json --gitignore \"@(src|test|scripts)/**/*.@(ts|js|md|html|css|json)\"",
         "lint": "eslint --config ./config/eslint.json --no-eslintrc \"@(src|tests|scripts)/**/*.@(ts|js)\"",
         "lint-fix": "eslint --config ./config/eslint.json --no-eslintrc --fix \"@(src|tests|scripts)/**/*.@(ts|js)\"",
         "test": "npm run compile && npm run playwright-test",
@@ -40,6 +41,7 @@
         "@typescript-eslint/eslint-plugin": "^7.0.2",
         "@typescript-eslint/parser": "^7.0.2",
         "eslint": "^8.57.0",
+        "cspell": "8.4.1",
         "prettier": "^3.2.5",
         "clean-webpack-plugin": "^4.0.0",
         "copy-webpack-plugin": "^12.0.2",
