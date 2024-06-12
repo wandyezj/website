@@ -1,7 +1,9 @@
 import { test, expect } from "@playwright/test";
-import { mainPageTitle, navigateToMainPage } from "./navigateToMainPage";
+
+import { navigateToPage } from "./navigateToPage";
+const mainPageTitle = "Website";
 
 test("navigates to correct page title", async ({ browser }) => {
-    const page = await navigateToMainPage(browser);
+    const page = await navigateToPage(browser, "index.html", mainPageTitle);
     await expect(page).toHaveTitle(mainPageTitle);
 });
